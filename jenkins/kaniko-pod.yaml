@@ -5,18 +5,15 @@ spec:
   serviceAccountName: jenkins
 
   containers:
-    - name: kaniko
-      image: gcr.io/kaniko-project/executor:latest
-      command:
-        - /busybox/sh
-      args:
-        - -c
-        - "sleep 99d"
-      tty: true
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    command:
+      - /busybox/cat
+    tty: true
 
-      volumeMounts:
-        - name: docker-config
-          mountPath: /kaniko/.docker
+    volumeMounts:
+      - name: docker-config
+        mountPath: /kaniko/.docker
 
   volumes:
     - name: docker-config

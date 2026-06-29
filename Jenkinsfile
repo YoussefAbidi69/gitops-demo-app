@@ -75,6 +75,41 @@ pipeline {
                 }
             }
         }
+  
+
+        stage('Commit & Push GitOps Changes') {
+            steps {
+                container('kaniko') {
+                    dir('gitops-config') {
+
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'github-creds',
+                                usernameVariable: 'GIT_USER',
+                                passwordVariable: 'GIT_PASS'
+                            )
+                        ]) {
+
+                            sh """
+                                git config user.name "Jenkins"
+                                git config user.email "jenkins@local"
+
+                                git add gitops-demo/values.yaml
+                                git commit -m "Update image tag to ${IMAGE_TAG}" || true
+
+                                git push https://${GIT_USER}:${GIT_PASS}@github.com/YoussefAbidi69/gitops-demo-config.git HEAD:main
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
     }
     post {
         success {

@@ -1,22 +1,205 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GitOps Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova — Modern Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <h1>🚀 GitOps Demo Project</h1>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">
+        <span class="logo__mark">N</span>
+        <span class="logo__text">Nova</span>
+      </a>
 
-    <h2>Congratulations!</h2>
+      <nav class="nav">
+        <a href="#" class="nav__link nav__link--active">Shop</a>
+        <a href="#" class="nav__link">Collections</a>
+        <a href="#" class="nav__link">About</a>
+        <a href="#" class="nav__link">Contact</a>
+      </nav>
 
-    <p>This application is running inside Kubernetes.</p>
+      <div class="header__actions">
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Cart" id="cartToggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="menu-btn" id="menuToggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
 
-    <p>Built with Docker.</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <span class="hero__badge">New Season</span>
+        <h1 class="hero__title">Designed for<br /><span class="hero__title-accent">modern living</span></h1>
+        <p class="hero__text">Discover thoughtfully crafted essentials that blend form and function. Free shipping on orders over $75.</p>
+        <div class="hero__cta">
+          <a href="#products" class="btn btn--primary">Shop now</a>
+          <a href="#products" class="btn btn--ghost">Browse catalog</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__card hero__card--1">
+          <div class="hero__card-emoji">🪑</div>
+          <div>
+            <strong>Furniture</strong>
+            <small>120+ items</small>
+          </div>
+        </div>
+        <div class="hero__card hero__card--2">
+          <div class="hero__card-emoji">💡</div>
+          <div>
+            <strong>Lighting</strong>
+            <small>80+ items</small>
+          </div>
+        </div>
+        <div class="hero__blob"></div>
+      </div>
+    </div>
+  </section>
 
-    <p>Deployed with Helm.</p>
+  <!-- Products -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section__head">
+        <div>
+          <h2 class="section__title">Featured products</h2>
+          <p class="section__subtitle">Handpicked favorites our customers love</p>
+        </div>
+        <div class="filters" id="filters">
+          <button class="filter filter--active" data-category="all">All</button>
+          <button class="filter" data-category="furniture">Furniture</button>
+          <button class="filter" data-category="lighting">Lighting</button>
+          <button class="filter" data-category="decor">Decor</button>
+          <button class="filter" data-category="kitchen">Kitchen</button>
+        </div>
+      </div>
 
-    <p>Managed by Argo CD.</p>
+      <div class="product-grid" id="productGrid">
+        <!-- products injected by JS -->
+      </div>
+    </div>
+  </section>
 
-    <p>CI/CD powered by Jenkins.</p>
+  <!-- Features -->
+  <section class="features">
+    <div class="container features__grid">
+      <div class="feature">
+        <div class="feature__icon">🚚</div>
+        <h3>Free shipping</h3>
+        <p>On all orders over $75, delivered to your door.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon">↩️</div>
+        <h3>30-day returns</h3>
+        <p>Not satisfied? Return it within 30 days, no questions.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon">🔒</div>
+        <h3>Secure checkout</h3>
+        <p>Encrypted payments keep your data safe and sound.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon">💬</div>
+        <h3>24/7 support</h3>
+        <p>Our team is here to help whenever you need us.</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container newsletter__inner">
+      <h2>Get 10% off your first order</h2>
+      <p>Join our newsletter for exclusive deals and new arrivals.</p>
+      <form class="newsletter__form" id="newsletterForm">
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit" class="btn btn--primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__col">
+        <a href="#" class="logo">
+          <span class="logo__mark">N</span>
+          <span class="logo__text">Nova</span>
+        </a>
+        <p class="footer__about">Modern essentials for modern living. Crafted with care, designed to last.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <a href="#">Furniture</a>
+        <a href="#">Lighting</a>
+        <a href="#">Decor</a>
+        <a href="#">Kitchen</a>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <a href="#">About us</a>
+        <a href="#">Careers</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Press</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="#">Help center</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© 2026 Nova. All rights reserved.</p>
+      <div class="footer__social">
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">◎</a>
+        <a href="#" aria-label="Facebook">f</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+    <div class="cart-drawer__head">
+      <h3>Your cart</h3>
+      <button class="icon-btn" id="cartClose" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cart-drawer__body" id="cartBody">
+      <!-- cart items injected by JS -->
+    </div>
+    <div class="cart-drawer__foot" id="cartFoot">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cartTotal">$0.00</strong>
+      </div>
+      <button class="btn btn--primary btn--block" id="checkoutBtn">Checkout</button>
+      <p class="cart-empty-note">Shipping & taxes calculated at checkout</p>
+    </div>
+  </aside>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>

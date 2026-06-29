@@ -5,6 +5,7 @@ spec:
   serviceAccountName: jenkins
 
   containers:
+
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:
@@ -15,10 +16,27 @@ spec:
       - name: docker-config
         mountPath: /kaniko/.docker
 
+      - name: workspace-volume
+        mountPath: /home/jenkins/agent
+
+  - name: git
+    image: alpine/git:latest
+    command:
+      - cat
+    tty: true
+
+    volumeMounts:
+      - name: workspace-volume
+        mountPath: /home/jenkins/agent
+
   volumes:
+
     - name: docker-config
       secret:
         secretName: dockerhub-secret
         items:
           - key: .dockerconfigjson
             path: config.json
+
+    - name: workspace-volume
+      emptyDir: {}

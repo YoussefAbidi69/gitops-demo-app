@@ -1,4 +1,4 @@
-kkpipeline {
+pipeline {
 
     agent {
         kubernetes {

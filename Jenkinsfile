@@ -8,7 +8,9 @@ pipeline {
     }
 
     environment {
-        IMAGE = "youssefabidi1/gitops-demo:latest"
+    IMAGE_NAME = "youssefabidi1/gitops-demo"
+    IMAGE_TAG = "${BUILD_NUMBER}"
+    IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
     }
 
     stages {

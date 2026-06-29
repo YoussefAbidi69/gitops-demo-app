@@ -8,9 +8,10 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
       command:
-        - /kaniko/executor
+        - /busybox/sh
       args:
-        - "--help"
+        - -c
+        - "sleep 99d"
       tty: true
 
       volumeMounts:

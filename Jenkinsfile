@@ -81,22 +81,28 @@ pipeline {
             steps {
                 container('git') {
                     dir('gitops-config') {
-                        sh '''
-                            echo "Current directory:"
-                            pwd
 
-                            echo ""
-                            echo "Files:"
-                            ls -la
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'github-creds',
+                                usernameVariable: 'GIT_USER',
+                                passwordVariable: 'GIT_PASS'
+                            )
+                        ]) {
 
-                            echo ""
-                            echo ".git exists?"
-                            ls -la .git || true
+                            sh """
+                                git config --global --add safe.directory /home/jenkins/agent/workspace/gitops-demo-app/gitops-config
 
-                            echo ""
-                            echo "Git status:"
-                            git status || true
-                        '''
+                                git config user.name "Jenkins"
+                                git config user.email "jenkins@local"
+
+                                git add gitops-demo/values.yaml
+
+                                git commit -m "Update image tag to ${IMAGE_TAG}" || echo "Nothing to commit"
+
+                                git push https://${GIT_USER}:${GIT_PASS}@github.com/YoussefAbidi69/gitops-demo-config.git HEAD:main
+                            """
+                        }
                     }
                 }
             }

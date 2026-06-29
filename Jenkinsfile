@@ -57,6 +57,24 @@ pipeline {
             }
         }
     }
+        stage('Update Image Tag') {
+            steps {
+                container('kaniko') {
+
+                    dir('gitops-config') {
+
+                        sh '''
+                            echo "Updating image tag to ${IMAGE_TAG}"
+
+                            sed -i "s/tag:.*/tag: \\"${IMAGE_TAG}\\"/" gitops-demo/values.yaml
+
+                            echo "New values.yaml:"
+                            grep -A2 "image:" gitops-demo/values.yaml
+                        '''
+                    }
+                }
+            }
+        }
 
     post {
         success {

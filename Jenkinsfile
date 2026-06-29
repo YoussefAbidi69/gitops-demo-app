@@ -80,28 +80,23 @@ pipeline {
         stage('Commit & Push GitOps Changes') {
             steps {
                 container('git') {
-
                     dir('gitops-config') {
+                        sh '''
+                            echo "Current directory:"
+                            pwd
 
-                        withCredentials([
-                            usernamePassword(
-                                credentialsId: 'github-creds',
-                                usernameVariable: 'GIT_USER',
-                                passwordVariable: 'GIT_PASS'
-                            )
-                        ]) {
+                            echo ""
+                            echo "Files:"
+                            ls -la
 
-                            sh """
-                                git config user.name "Jenkins"
-                                git config user.email "jenkins@local"
+                            echo ""
+                            echo ".git exists?"
+                            ls -la .git || true
 
-                                git add gitops-demo/values.yaml
-
-                                git commit -m "Update image tag to ${IMAGE_TAG}" || echo "Nothing to commit"
-
-                                git push https://${GIT_USER}:${GIT_PASS}@github.com/YoussefAbidi69/gitops-demo-config.git HEAD:main
-                            """
-                        }
+                            echo ""
+                            echo "Git status:"
+                            git status || true
+                        '''
                     }
                 }
             }

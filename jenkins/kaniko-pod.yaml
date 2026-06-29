@@ -1,19 +1,17 @@
 apiVersion: v1
 kind: Pod
 
-metadata:
-  labels:
-    app: kaniko-agent
-
 spec:
   serviceAccountName: jenkins
 
   containers:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
-      tty: true
       command:
-        - /busybox/cat
+        - /kaniko/executor
+      args:
+        - "--help"
+      tty: true
 
       volumeMounts:
         - name: docker-config

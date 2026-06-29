@@ -56,7 +56,7 @@ pipeline {
                 }
             }
         }
-    }
+    
         stage('Update Image Tag') {
             steps {
                 container('kaniko') {
@@ -75,7 +75,7 @@ pipeline {
                 }
             }
         }
-
+    }
     post {
         success {
             echo 'Image built and pushed successfully!'

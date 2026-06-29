@@ -1,0 +1,47 @@
+pipeline {
+
+    agent {
+        kubernetes {
+            yamlFile 'jenkins/kaniko-pod.yaml'
+            defaultContainer 'kaniko'
+        }
+    }
+
+    environment {
+        IMAGE = "youssefabidi1/gitops-demo:latest"
+    }
+
+    stages {
+
+        stage('Checkout Source') {
+            steps {
+                echo 'Checking out source code...'
+                checkout scm
+            }
+        }
+
+        stage('Build & Push Image') {
+            steps {
+                container('kaniko') {
+
+                    sh '''
+                    /kaniko/executor \
+                      --context=$WORKSPACE \
+                      --dockerfile=$WORKSPACE/Dockerfile \
+                      --destination=$IMAGE
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Image built and pushed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
